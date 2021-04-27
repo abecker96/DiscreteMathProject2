@@ -45,9 +45,11 @@ y5 = x**2
 y6 = 3*x*(x-2)
 y7 = 4*(x**2)
 
-plt.plot(x, y5, 'r')
-plt.plot(x, y6, 'g')
-plt.plot(x, y7, 'b')
+plt.plot(x, y5, 'r', label = 'y=x^2')
+plt.plot(x, y6, 'g', label = 'y=3x(x-2)')
+plt.plot(x, y7, 'b', label = 'y=4x^2')
+
+plt.legend(loc='upper center')
 
 plt.show()
 plt.close()
@@ -56,5 +58,5 @@ plt.close()
 y8 = y5/2
 y9 = (x*(3*x-2))/2
 
-plt.plot(x, y8, 'r')
-plt.plot(x, y9, 'b')
+plt.plot(x, y8, 'r', label = 'y=(x^2)/2')
+plt.plot(x, y9, 'b', label = 'y=(x(3x-2))/2')
