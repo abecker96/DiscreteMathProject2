@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Feb 24 14:29:50 2020
+Created on Mon April 27 2021
 
-@author: kel
+@author: Aidan Becker and Abrar Ahmad
 """
-#This script shows how to import a dataset into Python that is downloaded from KONECT.
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -33,27 +32,6 @@ plt.rc('font', **font)
 
 ################### END: Basic Setup ######################
 
-##################### START: Example network graphing #######################
-
-# next few lines plot the layout of the network
-#plt.figure(101, figsize=(10, 10))
-#plt.axes([0,0,0.7,0.6])
-#plt.title('Directed Network: Florida Ecosystem, Wet')
-#pos = nx.spring_layout(dg) # spring_layout is an layout of the vertices.
-#nx.draw_networkx_nodes(dg, pos, node_size = 25) # this plots nodes
-#nx.draw_networkx_edges(dg, pos, width = .5) # this plot edges
-
-##################### END: Example graphing from previous project #######################
-
-##################### START: Example Histogram #####################
-
-# plt.figure(102, figsize=(10, 10))
-# plt.axes([0,0,0.7,0.6])
-# plt.title('Histogram of the vertex degrees in the Florida Ecosystem Wet graph. Mean = '+'{0:.2f}'.format(mn)+ '; STD = '+'{0:.2f}'.format(sd))
-# plt.hist(vec_deg, bins = 10) 
-
-##################### END: Example Histogram #######################
-
 ##################### START: Part A #####################
 
 # Set up graph domain
@@ -67,7 +45,7 @@ figA, axA = plt.subplots()
 axA.plot(t, a1)
 axA.plot(t, a2)
 
-axA.set(xlabel="TODO: Description", ylabel="TODO: Description", title="TODO: PartA title")
+axA.set(xlabel="Blue: y = 0.5n, Orange: y = n − ⌊n^2⌋ + 1", ylabel="", title="n − ⌊n^2⌋ + 1 is Ω(0.5n) for all n ≥ 1")
 
 axA.grid()
 
@@ -90,7 +68,7 @@ axB.plot(t, b1)
 axB.plot(t, b2)
 axB.plot(t, b3)
 
-axB.set(xlabel="TODO: Description", ylabel="TODO: Description", title="TODO: PartB title")
+axB.set(xlabel="Blue: y = 0, Orange: y = n − ⌊n^2⌋ + 1, Green: y = n", ylabel="", title="n − ⌊n^2⌋ + 1 is O(n) for every n ≥ 3")
 
 axB.grid()
 
@@ -113,7 +91,7 @@ axC.plot(t, c1)
 axC.plot(t, c2)
 axC.plot(t, c3)
 
-axC.set(xlabel="", ylabel="", title="TODO: PartC title")
+axC.set(xlabel="Blue: y = n^2, Orange: y = 3n(n-2), Green: y = 4(n^2)", ylabel="", title="3n(n-2) is Θ(n^2) for every n ≥ 3")
 
 axC.grid()
 
@@ -134,7 +112,7 @@ figD, axD = plt.subplots()
 axD.plot(t, d1)
 axD.plot(t, d2)
 
-axD.set(xlabel="", ylabel="", title="TODO: PartD title")
+axD.set(xlabel="Blue: y = 0.5n^2, Orange: y = n(3n-2)/2", ylabel="", title="n(3n-2)/2 is Ω 0.5n^2 for every n ≥ 3")
 
 axD.grid()
 
@@ -161,7 +139,7 @@ axE.plot(t, e1)
 axE.plot(t, e2)
 axE.plot(t, e3)
 
-axE.set(xlabel="", ylabel="", title="TODO: PartE title")
+axE.set(xlabel="Blue: y = (n^3)/6, Orange: y = n^2(⌈n3⌉−1), Green: y = n^3", ylabel="", title="n^2(⌈n3⌉−1) is Θ(n^3) for every n ≥ 2")
 
 axE.grid()
 
