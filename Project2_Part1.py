@@ -60,3 +60,5 @@ y9 = (x*(3*x-2))/2
 
 plt.plot(x, y8, 'r', label = 'y=(x^2)/2')
 plt.plot(x, y9, 'b', label = 'y=(x(3x-2))/2')
+
+plt.leged(loc='upper center')
