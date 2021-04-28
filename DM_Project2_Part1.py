@@ -7,7 +7,6 @@ Created on Mon April 27 2021
 
 import matplotlib.pyplot as plt
 import numpy as np
-import math
 
 ################### START: Basic Setup ######################
 

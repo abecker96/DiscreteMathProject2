@@ -49,17 +49,6 @@ plt.close('all')
 
 ################### END: Clearing charts from memory ######################
 
-
-##################### START: Example Histogram #####################
-
-# plt.figure(102, figsize=(10, 10))
-# plt.axes([0,0,0.7,0.6])
-# plt.title('Histogram of the vertex degrees in the Florida Ecosystem Wet graph. Mean = '+'{0:.2f}'.format(mn)+ '; STD = '+'{0:.2f}'.format(sd))
-# plt.hist(vec_deg, bins = 10) 
-
-##################### END: Example Histogram #######################
-
-
 ##################### START: Generate arrays to sort #####################
 
 numElements = [1]   #initialized with 1 to make generation easier
@@ -94,6 +83,5 @@ plt.xlabel("Number of elements in the array")
 plt.ylabel("Time taken to sort (milliseconds)")
 plt.title("Number of elements vs time taken to sort with insertion sort")
 plt.show()
-
 
 ##################### END: Sort the arrays #####################
