@@ -1,17 +1,59 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Feb 24 14:29:50 2020
+Created on Wed Feb 28 2021
 
-@author: kel
+@author: Aidan Becker and Abrar Ahmad
 """
-print('#####################################################################')
-print('####### Directed weighted network: Florida Ecosystem wet ############')
-print('#####################################################################') 
-#This script shows how to import a dataset into Python that is downloaded from KONECT.
 
-import networkx as nx
 import matplotlib.pyplot as plt
-import numpy as np
+from timeit import default_timer as timer
+
+# Python program for implementation of MergeSort
+# from: https://www.geeksforgeeks.org/merge-sort/
+def mergeSort(arr):
+    if len(arr) > 1:
+ 
+         # Finding the mid of the array
+        mid = len(arr)//2
+ 
+        # Dividing the array elements
+        L = arr[:mid]
+ 
+        # into 2 halves
+        R = arr[mid:]
+ 
+        # Sorting the first half
+        mergeSort(L)
+ 
+        # Sorting the second half
+        mergeSort(R)
+ 
+        i = j = k = 0
+ 
+        # Copy data to temp arrays L[] and R[]
+        while i < len(L) and j < len(R):
+            if L[i] < R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+ 
+        # Checking if any element was left
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+ 
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+   
+# Define a helper function to reverse an array
+def Reverse(lst):
+    return [ele for ele in reversed(lst)]
 
 ################### START: Clearing charts from memory ######################
 
@@ -22,23 +64,40 @@ plt.close('all')
 
 ################### END: Clearing charts from memory ######################
 
-##################### START: Example network graphing #######################
+##################### START: Generate arrays to sort #####################
 
-# next few lines plot the layout of the network
-#plt.figure(101, figsize=(10, 10))
-#plt.axes([0,0,0.7,0.6])
-#plt.title('Directed Network: Florida Ecosystem, Wet')
-#pos = nx.spring_layout(dg) # spring_layout is an layout of the vertices.
-#nx.draw_networkx_nodes(dg, pos, node_size = 25) # this plots nodes
-#nx.draw_networkx_edges(dg, pos, width = .5) # this plot edges
+numElements = [1]   #initialized with 1 to make generation easier
+arrN = [[1], [], [], [], [], [], [], [], [], [], []]    #also initialized with 1
 
-##################### END: Example graphing from previous project #######################
+for i in range(1, 11):
+    startVal = (i-1)*100 + 100
+    for j in range(1, startVal + 1):
+        arrN[i].append(j)
+    numElements.append(startVal)
+    # need to reverse the list now, it was added as a sorted list
+    arrN[i] = Reverse(arrN[i])
+    
+##################### END: Generate arrays to sort #####################
 
-##################### START: Example Histogram #####################
+##################### START: Sort the arrays #####################
 
-# plt.figure(102, figsize=(10, 10))
-# plt.axes([0,0,0.7,0.6])
-# plt.title('Histogram of the vertex degrees in the Florida Ecosystem Wet graph. Mean = '+'{0:.2f}'.format(mn)+ '; STD = '+'{0:.2f}'.format(sd))
-# plt.hist(vec_deg, bins = 10) 
+timeTakenArr = []   #empty array to store timing information
 
-##################### END: Example Histogram #######################
+for arr in arrN:
+    startTime = timer()
+    
+    mergeSort(arr)
+    
+    endTime = timer()
+    print("Time taken to sort an array of " + str(len(arr)) + " elements in milliseconds: " + str((endTime - startTime) * 1000))
+    timeTakenArr.append((endTime - startTime) * 1000)
+
+# plot the data
+plt.scatter(numElements, timeTakenArr)
+plt.xlabel("Number of elements in the array")
+plt.ylabel("Time taken to sort (milliseconds)")
+plt.title("Number of elements vs time taken to sort with merge sort")
+plt.show()
+
+
+##################### END: Sort the arrays #####################
