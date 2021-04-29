@@ -8,6 +8,7 @@ Created on Mon April 27 2021
 import matplotlib.pyplot as plt
 import numpy as np
 from timeit import default_timer as timer
+import time
 
 ################### START: Basic Setup ######################
 #Leave this block uncommented all the time
@@ -35,8 +36,7 @@ plt.rc('font', **font)
 # Python program for implementation of MergeSort
 # from: https://www.geeksforgeeks.org/merge-sort/
 def mergeSort(arr):
-    if len(arr) > 1:
- 
+    if len(arr) > 1: 
          # Finding the mid of the array
         mid = len(arr)//2
         # Dividing the array elements
@@ -67,6 +67,12 @@ def mergeSort(arr):
             arr[k] = R[j]
             j += 1
             k += 1
+            
+def mergeSortEstimate(n):
+    if n <= 1:
+        return 0
+    else:
+        return mergeSortEstimate(np.floor(n/2)) + mergeSortEstimate(np.ceil(n/2)) + (n-1)
             
 # Define insertionSort algorithm
 def insertionSort(arr):
@@ -246,6 +252,10 @@ timeTakenArr_ins = []   #empty array to store timing information
 
 #Sort all the arrays, saving timing information
 for arr in arrN_ins:
+    # sleep for 1 second
+    # Spyder likes to print while code is running, which can mess with timing information
+    # This just helps ensure accurate information
+    time.sleep(1)
     startTime = timer()
     
     insertionSort(arr)
@@ -253,12 +263,37 @@ for arr in arrN_ins:
     endTime = timer()
     print("Time taken to sort an array of " + str(len(arr)) + " elements in milliseconds: " + str((endTime - startTime) * 1000))
     timeTakenArr_ins.append((endTime - startTime) * 1000)
+    
+    
+# Estimate time taken with formula: 0.5*(t*t) + (0.5*t) - 1
+timeEst_ins = []
+for i in range(len(numElements_ins)):
+    timeEst_ins.append(0.5*(numElements_ins[i]*numElements_ins[i]) + 0.5*numElements_ins[i] - 1)
+
+# Scale the estimates to match our measurements
+scaleFactor = timeTakenArr_ins[10] / timeEst_ins[10]
+for i in range(len(timeEst_ins)):
+    timeEst_ins[i] = timeEst_ins[i] * scaleFactor
+    
 
 # plot the data
 plt.scatter(numElements_ins, timeTakenArr_ins)
-plt.xlabel("Number of elements in the array")
-plt.ylabel("Time taken to sort (milliseconds)")
-plt.title("Number of elements vs time taken to sort with insertion sort")
+plt.xlabel("Number of elements in array vs time taken to sort (milliseconds) with Insertion Sort")
+plt.ylabel("")
+plt.title("Insertion Sort")
+plt.show()
+
+plt.scatter(numElements_ins, timeEst_ins)
+plt.xlabel("Number of elements in array vs time taken to sort (milliseconds) with Insertion Sort")
+plt.ylabel("")
+plt.title("Insertion Sort time estimate assuming O((n^2)/2 + n^2 + 1) complexity")
+plt.show()
+
+plt.scatter(numElements_ins, timeTakenArr_ins)
+plt.scatter(numElements_ins, timeEst_ins)
+plt.xlabel("Number of elements in array vs time taken to sort (milliseconds) with Insertion Sort")
+plt.ylabel("Blue: Measured time, Orange: Estimated time")
+plt.title("Insertion Sort time compared with estimated time")
 plt.show()
 
 ##################### END: Section 2 #####################
@@ -284,19 +319,50 @@ timeTakenArr_merge = []   #empty array to store timing information
 
 #sort all the arrays, maintaining timing information
 for arr in arrN_merge:
+    # sleep for 1 second
+    # Spyder likes to print while code is running, which can mess with timing information
+    # This just helps ensure accurate information
+    time.sleep(1)
+    
     startTime = timer()
     
     mergeSort(arr)
     
     endTime = timer()
+    
     print("Time taken to sort an array of " + str(len(arr)) + " elements in milliseconds: " + str((endTime - startTime) * 1000))
     timeTakenArr_merge.append((endTime - startTime) * 1000)
 
+# Estimate time taken with recursive formula: 𝑚𝑛 = 𝑚⌊𝑛/2⌋ + 𝑚⌈𝑛/2⌉ + (𝑛 − 1) for 𝑛 > 1 with 𝑚1 = 0
+timeEst_merge = []
+for i in range(len(numElements_merge)):
+    timeEst_merge.append(mergeSortEstimate(numElements_merge[i]))
+
+# Scale the estimates to match our measurements
+scaleFactor = timeTakenArr_merge[10] / timeEst_merge[10]
+for i in range(len(timeEst_ins)):
+    timeEst_merge[i] = timeEst_merge[i] * scaleFactor
+
+
+
 # plot the data
 plt.scatter(numElements_merge, timeTakenArr_merge)
-plt.xlabel("Number of elements in the array")
-plt.ylabel("Time taken to sort (milliseconds)")
-plt.title("Number of elements vs time taken to sort with merge sort")
+plt.xlabel("Number of elements in array vs time taken to sort (milliseconds) with Merge Sort")
+plt.ylabel("")
+plt.title("Merge Sort")
+plt.show()
+
+plt.scatter(numElements_merge, timeEst_merge)
+plt.xlabel("Number of elements in array vs time taken to sort (milliseconds) with Merge Sort")
+plt.ylabel("")
+plt.title("Merge Sort time estimate assuming m(n) = m⌊n/2⌋ + m⌈n/2⌉ + (n − 1) for n > 1 with m(1) = 0")
+plt.show()
+
+plt.scatter(numElements_merge, timeTakenArr_merge)
+plt.scatter(numElements_merge, timeEst_merge)
+plt.xlabel("Number of elements in array vs time taken to sort (milliseconds) with Merge Sort")
+plt.ylabel("Blue: Measured time, Orange: Estimated time")
+plt.title("Merge Sort time compared with estimated time")
 plt.show()
 
 ##################### END: Section 3 #####################
