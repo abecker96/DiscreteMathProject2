@@ -37,19 +37,17 @@ plt.rc('font', **font)
 # from: https://www.geeksforgeeks.org/merge-sort/
 def mergeSort(arr):
     if len(arr) > 1: 
-         # Finding the mid of the array
+        # Divide the array in 2 halves
         mid = len(arr)//2
-        # Dividing the array elements
         L = arr[:mid]
-        # into 2 halves
         R = arr[mid:]
-        # Sorting the first half
+        
+        # Sorting both halves
         mergeSort(L)
-        # Sorting the second half
         mergeSort(R)
         
+        # 'zip' both sorted halves into a final array
         i = j = k = 0
-        # Copy data to temp arrays L[] and R[]
         while i < len(L) and j < len(R):
             if L[i] < R[j]:
                 arr[k] = L[i]
@@ -58,11 +56,13 @@ def mergeSort(arr):
                 arr[k] = R[j]
                 j += 1
             k += 1
-        # Checking if any element was left
+        # Checking if any element was missed
+        # If it was, add it to the main array
         while i < len(L):
             arr[k] = L[i]
             i += 1
             k += 1
+        # Check the other half
         while j < len(R):
             arr[k] = R[j]
             j += 1
@@ -148,7 +148,7 @@ axB.plot(t, b1)
 axB.plot(t, b2)
 axB.plot(t, b3)
 
-axB.set(xlabel="Blue: y = 0, Orange: y = n − ⌊n^2⌋ + 1, Green: y = n", ylabel="", title="n − ⌊n^2⌋ + 1 is O(n) for every n ≥ 3")
+axB.set(xlabel="Blue: y = 0, Orange: y = n − ⌊n/2⌋ + 1, Green: y = n", ylabel="", title="n − ⌊n/2⌋ + 1 is O(n) for every n ≥ 3")
 
 axB.grid()
 
@@ -219,7 +219,7 @@ axE.plot(t, e1)
 axE.plot(t, e2)
 axE.plot(t, e3)
 
-axE.set(xlabel="Blue: y = (n^3)/6, Orange: y = n^2(⌈n3⌉−1), Green: y = n^3", ylabel="", title="n^2(⌈n3⌉−1) is Θ(n^3) for every n ≥ 2")
+axE.set(xlabel="Blue: y = (n^3)/6, Orange: y = n^2(⌈n/3⌉−1), Green: y = n^3", ylabel="", title="n^2(⌈n/3⌉−1) is Θ(n^3) for every n ≥ 2")
 
 axE.grid()
 
